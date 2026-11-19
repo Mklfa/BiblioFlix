@@ -98,16 +98,47 @@ function getWeeklyTrendingBooks(date = new Date()) {
   const mondayOffset = (new Date(weekStart).getUTCDay() + 6) % 7;
   const monday = weekStart - mondayOffset * 24 * 60 * 60 * 1000;
   const weekIndex = Math.floor((monday - Date.UTC(2020, 0, 6)) / (7 * 24 * 60 * 60 * 1000));
-  return ["romance", "fiction", "mystery", "juvenile fiction"].flatMap((subject) => {
-    const categoryBooks = CURATED_BOOKS.filter((book) =>
+  const subjects = ["romance", "fiction", "mystery", "science fiction", "juvenile fiction", "philosophy"];
+  const booksBySubject = new Map(subjects.map((subject) => {
+    const books = CURATED_BOOKS.filter((book) =>
       book.primaryCategorySubject === subject
       && hasFrenchEbook(book)
       && book.key
       && Number(book.cover_i) > 0);
-    if (!categoryBooks.length) return [];
-    const start = ((weekIndex % categoryBooks.length) + categoryBooks.length) % categoryBooks.length;
-    return [categoryBooks[start]];
-  });
+    const start = books.length ? weekIndex % books.length : 0;
+    return [subject, [...books.slice(start), ...books.slice(0, start)]];
+  }));
+  const selectionPlan = [
+    ["romance", 3],
+    ["fiction", 3],
+    ["mystery", 2],
+    ["science fiction", 1],
+    ["juvenile fiction", 1],
+  ];
+  const selectedBooks = [];
+  const selectedKeys = new Set();
+  const nextBookIndex = new Map(subjects.map((subject) => [subject, 0]));
+  const appendBooks = (subject, limit) => {
+    const books = booksBySubject.get(subject) || [];
+    let nextIndex = nextBookIndex.get(subject) || 0;
+    let added = 0;
+    while (nextIndex < books.length && added < limit && selectedBooks.length < 10) {
+      const book = books[nextIndex];
+      nextIndex += 1;
+      if (selectedKeys.has(book.key)) continue;
+      selectedKeys.add(book.key);
+      selectedBooks.push(book);
+      added += 1;
+    }
+    nextBookIndex.set(subject, nextIndex);
+  };
+  selectionPlan.forEach(([subject, count]) => appendBooks(subject, count));
+  while (selectedBooks.length < 10) {
+    const currentCount = selectedBooks.length;
+    subjects.forEach((subject) => appendBooks(subject, 1));
+    if (selectedBooks.length === currentCount) break;
+  }
+  return selectedBooks;
 }
 const CATEGORY_SUBJECT_ALIASES = {
   "fiction": ["fiction", "novel", "novels", "short stories", "fantasy", "fantasy fiction", "african literature", "african fiction", "african novels", "graphic novels", "graphic novel", "comics", "comic books"],

@@ -32,4 +32,4 @@ La sélection éditoriale de « Romance » inclut aussi des titres visibles sur 
 
 Le numéro WhatsApp est configuré pour le numéro fourni au Sénégal (`+221 75 557 60 94`). Pour le modifier, changez `WHATSAPP_PHONE` dans `public/common.js`.
 
-L’accueil affiche six livres sélectionnés dans le catalogue, renouvelés automatiquement chaque lundi. Il s’agit d’une sélection éditoriale, et non d’un classement des ventes en temps réel.
+L’accueil affiche dix livres sélectionnés dans le catalogue, renouvelés automatiquement chaque lundi et répartis entre plusieurs catégories. Il s’agit d’une sélection éditoriale, et non d’un classement des ventes en temps réel.
