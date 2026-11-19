@@ -94,6 +94,33 @@ function makeOrderLink(book, author) {
   quantity.setAttribute("aria-label", "Nombre de livres à commander");
   quantityLabel.append(quantity);
 
+  function getValidQuantity() {
+    const count = Number(quantity.value);
+    if (!Number.isSafeInteger(count) || count < 1) {
+      quantity.setCustomValidity("Saisissez un nombre entier positif.");
+      quantity.reportValidity();
+      return null;
+    }
+    quantity.setCustomValidity("");
+    return count;
+  }
+
+  const addToCart = document.createElement("button");
+  addToCart.className = "button button-add-to-cart";
+  addToCart.type = "button";
+  addToCart.textContent = "Ajouter au panier";
+  addToCart.addEventListener("click", () => {
+    const count = getValidQuantity();
+    if (count === null) return;
+    if (!window.BookStore.addToCart({ ...book, author_name: [author] }, count)) return;
+    addToCart.textContent = "Ajouté au panier";
+    addToCart.disabled = true;
+    window.setTimeout(() => {
+      addToCart.textContent = "Ajouter au panier";
+      addToCart.disabled = false;
+    }, 1400);
+  });
+
   const action = document.createElement("button");
   action.className = "button button-whatsapp";
   action.type = "submit";
@@ -104,13 +131,8 @@ function makeOrderLink(book, author) {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const count = Number(quantity.value);
-    if (!Number.isSafeInteger(count) || count < 1) {
-      quantity.setCustomValidity("Saisissez un nombre entier positif.");
-      quantity.reportValidity();
-      return;
-    }
-    quantity.setCustomValidity("");
+    const count = getValidQuantity();
+    if (count === null) return;
     const message = [
       "Bonjour, je souhaite commander ce livre :",
       `Titre : ${book.title}`,
@@ -123,7 +145,7 @@ function makeOrderLink(book, author) {
     const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   });
-  form.append(quantityLabel, action, note);
+  form.append(quantityLabel, addToCart, action, note);
   return form;
 }
 

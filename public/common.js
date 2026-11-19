@@ -156,6 +156,12 @@ const SEARCH_CACHE_TTL_MS = 5 * 60 * 1000;
 const SEARCH_CACHE_MAX_ENTRIES = 32;
 const SEARCH_CACHE = new Map();
 const SEARCH_REQUESTS = new Map();
+const CART_STORAGE_KEY = "biblioflix-cart-v1";
+let cartItems = [];
+let cartStorageWarning = "";
+let cartFeedback = "";
+let cartDialog;
+let cartStatus;
 
 function getBookCoverUrl(coverId, size = "L") {
   return `https://covers.openlibrary.org/b/id/${encodeURIComponent(coverId)}-${size}.jpg?default=false`;
@@ -304,8 +310,10 @@ function createBookCard(book, subject = "", eager = false) {
   const sources = getBookCoverSources(book);
   if (!sources.length) return null;
 
+  const card = document.createElement("article");
+  card.className = "book-card";
   const link = document.createElement("a");
-  link.className = "book-card";
+  link.className = "book-card-link";
   link.href = getBookHref(book, subject);
   link.setAttribute("aria-label", `Voir la fiche de ${book.title}`);
 
@@ -321,7 +329,7 @@ function createBookCard(book, subject = "", eager = false) {
   image.addEventListener("error", () => {
     sourceIndex += 1;
     if (sources[sourceIndex]) image.src = sources[sourceIndex];
-    else link.remove();
+    else card.remove();
   });
   cover.append(image);
 
@@ -333,7 +341,249 @@ function createBookCard(book, subject = "", eager = false) {
   author.textContent = book.author_name?.[0] || "Auteur non renseigné";
   details.append(title, author);
   link.append(cover, details);
-  return link;
+
+  const addButton = document.createElement("button");
+  addButton.className = "add-to-cart";
+  addButton.type = "button";
+  addButton.textContent = "Ajouter au panier";
+  addButton.addEventListener("click", () => {
+    if (!addToCart(book)) return;
+    addButton.textContent = "Ajouté";
+    addButton.classList.add("is-added");
+    window.setTimeout(() => {
+      addButton.textContent = "Ajouter au panier";
+      addButton.classList.remove("is-added");
+    }, 1400);
+  });
+
+  card.append(link, addButton);
+  return card;
+}
+
+function loadCart() {
+  try {
+    const saved = window.localStorage.getItem(CART_STORAGE_KEY);
+    if (!saved) return [];
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed)) throw new TypeError("Le contenu du panier n’est pas une liste.");
+    const validItems = parsed.filter((item) => (
+      item
+      && typeof item.key === "string"
+      && typeof item.title === "string"
+      && typeof item.author === "string"
+      && Number.isSafeInteger(item.quantity)
+      && item.quantity > 0
+    ));
+    if (validItems.length !== parsed.length) {
+      console.error("Certaines lignes du panier enregistré sont invalides.");
+      cartStorageWarning = "Certaines lignes enregistrées n’ont pas pu être récupérées.";
+    }
+    return validItems;
+  } catch (error) {
+    console.error("Impossible de lire le panier enregistré :", error);
+    cartStorageWarning = "Le panier enregistré n’a pas pu être lu sur cet appareil.";
+    return [];
+  }
+}
+
+function saveCart() {
+  try {
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+    cartStorageWarning = "";
+  } catch (error) {
+    console.error("Impossible d’enregistrer le panier :", error);
+    cartStorageWarning = "Le panier ne peut pas être conservé sur cet appareil.";
+  }
+}
+
+function createCartControl(action, item, text, label, className = "cart-quantity-button") {
+  const button = document.createElement("button");
+  button.className = className;
+  button.type = "button";
+  button.dataset.cartAction = action;
+  button.dataset.cartKey = item.key;
+  button.setAttribute("aria-label", label);
+  button.textContent = text;
+  return button;
+}
+
+function createCartRow(item) {
+  const row = document.createElement("li");
+  row.className = "cart-item";
+
+  const info = document.createElement("div");
+  info.className = "cart-item-info";
+  const title = document.createElement("span");
+  title.className = "cart-item-title";
+  title.textContent = item.title;
+  const author = document.createElement("span");
+  author.className = "cart-item-author";
+  author.textContent = item.author;
+  info.append(title, author);
+
+  const controls = document.createElement("div");
+  controls.className = "cart-item-controls";
+  const decrease = createCartControl("decrease", item, "−", `Réduire la quantité de ${item.title}`);
+  const quantity = document.createElement("span");
+  quantity.className = "cart-quantity";
+  quantity.textContent = String(item.quantity);
+  const increase = createCartControl("increase", item, "+", `Augmenter la quantité de ${item.title}`);
+  const remove = createCartControl("remove", item, "Retirer", `Retirer ${item.title} du panier`, "cart-remove");
+  controls.append(decrease, quantity, increase, remove);
+  row.append(info, controls);
+  return row;
+}
+
+function renderCart() {
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+  document.querySelectorAll(".cart-toggle").forEach((toggle) => {
+    const count = toggle.querySelector(".cart-count");
+    if (count) count.textContent = String(totalQuantity);
+    toggle.setAttribute("aria-label", `Ouvrir le panier, ${totalQuantity} article${totalQuantity === 1 ? "" : "s"}`);
+    toggle.setAttribute("aria-expanded", String(Boolean(cartDialog?.open)));
+  });
+  if (!cartDialog) return;
+
+  const list = cartDialog.querySelector(".cart-items");
+  const empty = cartDialog.querySelector(".cart-empty");
+  const total = cartDialog.querySelector(".cart-total");
+  const clear = cartDialog.querySelector(".cart-clear");
+  const send = cartDialog.querySelector(".cart-whatsapp");
+  list.replaceChildren(...cartItems.map(createCartRow));
+  empty.hidden = cartItems.length > 0;
+  total.hidden = cartItems.length === 0;
+  total.textContent = `${totalQuantity} livre${totalQuantity === 1 ? "" : "s"} au total`;
+  clear.disabled = cartItems.length === 0;
+  send.disabled = cartItems.length === 0;
+  cartStatus.textContent = cartFeedback || cartStorageWarning;
+}
+
+function addToCart(book, quantity = 1) {
+  const key = typeof book?.key === "string" ? book.key.trim() : "";
+  const title = typeof book?.title === "string" ? book.title.trim() : "";
+  const authorName = Array.isArray(book?.author_name) ? book.author_name[0] : book?.author;
+  const author = typeof authorName === "string" && authorName.trim()
+    ? authorName.trim()
+    : "Auteur non renseigné";
+  if (!key || !title || !Number.isSafeInteger(quantity) || quantity < 1) {
+    console.error("Impossible d’ajouter ce livre au panier : ses informations ou sa quantité sont invalides.");
+    cartFeedback = "Impossible d’ajouter ce livre au panier.";
+    renderCart();
+    return false;
+  }
+
+  const existing = cartItems.find((item) => item.key === key);
+  if (existing) {
+    if (!Number.isSafeInteger(existing.quantity + quantity)) {
+      cartFeedback = "La quantité demandée est trop élevée.";
+      renderCart();
+      return false;
+    }
+    existing.quantity += quantity;
+  } else {
+    cartItems.push({ key, title, author, quantity });
+  }
+  cartFeedback = "";
+  saveCart();
+  renderCart();
+  return true;
+}
+
+function initializeCart() {
+  cartItems = loadCart();
+  cartDialog = document.createElement("dialog");
+  cartDialog.id = "cart-dialog";
+  cartDialog.className = "cart-dialog";
+  cartDialog.setAttribute("aria-labelledby", "cart-dialog-title");
+  cartDialog.innerHTML = `
+    <div class="cart-panel">
+      <header class="cart-header">
+        <h2 id="cart-dialog-title">Mon panier</h2>
+        <button class="cart-close" type="button" aria-label="Fermer le panier">×</button>
+      </header>
+      <div class="cart-content">
+        <p class="cart-empty">Votre panier est vide.</p>
+        <ul class="cart-items"></ul>
+      </div>
+      <footer class="cart-footer">
+        <p class="cart-status" role="status" aria-live="polite"></p>
+        <p class="cart-total"></p>
+        <div class="cart-actions">
+          <button class="cart-clear" type="button" data-cart-action="clear">Vider le panier</button>
+          <button class="cart-whatsapp" type="button">Envoyer la commande sur WhatsApp</button>
+        </div>
+      </footer>
+    </div>`;
+  document.body.append(cartDialog);
+  cartStatus = cartDialog.querySelector(".cart-status");
+
+  const cartToggle = document.querySelector(".cart-toggle");
+  if (cartToggle) {
+    cartToggle.addEventListener("click", () => {
+      cartFeedback = "";
+      renderCart();
+      cartDialog.showModal();
+      cartToggle.setAttribute("aria-expanded", "true");
+    });
+  } else {
+    console.error("Le bouton du panier est absent de cette page.");
+  }
+
+  cartDialog.querySelector(".cart-close").addEventListener("click", () => cartDialog.close());
+  cartDialog.addEventListener("close", () => {
+    if (cartToggle) cartToggle.setAttribute("aria-expanded", "false");
+  });
+  cartDialog.addEventListener("click", (event) => {
+    if (event.target === cartDialog) {
+      cartDialog.close();
+      return;
+    }
+    const target = event.target instanceof Element ? event.target : null;
+    const control = target?.closest("[data-cart-action]");
+    if (!control) return;
+
+    const { cartAction, cartKey } = control.dataset;
+    if (cartAction === "clear") {
+      cartItems = [];
+    } else {
+      const item = cartItems.find((entry) => entry.key === cartKey);
+      if (!item) return;
+      if (cartAction === "remove" || (cartAction === "decrease" && item.quantity === 1)) {
+        cartItems = cartItems.filter((entry) => entry.key !== cartKey);
+      } else if (cartAction === "decrease") {
+        item.quantity -= 1;
+      } else if (cartAction === "increase") {
+        if (!Number.isSafeInteger(item.quantity + 1)) {
+          cartFeedback = "La quantité maximale est atteinte.";
+          renderCart();
+          return;
+        }
+        item.quantity += 1;
+      }
+    }
+    cartFeedback = "";
+    saveCart();
+    renderCart();
+  });
+  cartDialog.querySelector(".cart-whatsapp").addEventListener("click", () => {
+    if (!cartItems.length) return;
+    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const message = [
+      "Bonjour, je souhaite commander les livres suivants :",
+      ...cartItems.map((item, index) => `${index + 1}. ${item.title} — ${item.author} (quantité : ${item.quantity})`),
+      "",
+      `Quantité totale : ${totalQuantity} livre${totalQuantity === 1 ? "" : "s"}`,
+      "Pouvez-vous me confirmer la disponibilité et le prix ?",
+    ].join("\n");
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  });
+  window.addEventListener("storage", (event) => {
+    if (event.key !== CART_STORAGE_KEY) return;
+    cartFeedback = "";
+    cartItems = loadCart();
+    renderCart();
+  });
+  renderCart();
 }
 
 function renderBookCards(container, books, subject = "") {
@@ -369,8 +619,11 @@ window.BookStore = {
     )),
   getCuratedBook: (key) => CURATED_BOOKS_BY_KEY.get(key) || null,
   filterBooksByPrimaryCategory,
+  addToCart,
   getPrimaryCategory,
   getWeeklyTrendingBooks,
   renderBookCards,
   searchBooks,
 };
+
+initializeCart();
