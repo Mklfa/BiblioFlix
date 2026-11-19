@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#141414" />
+    <meta name="description" content="Recherchez des livres et explorez les résultats par catégorie." />
+    <title>Livres | BiblioFlix</title>
+    <link rel="preconnect" href="https://openlibrary.org" />
+    <link rel="preconnect" href="https://covers.openlibrary.org" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./common.js" defer></script>
+    <script src="./catalogue.js" defer></script>
+  </head>
+  <body data-page="catalogue">
+    <header class="site-header">
+      <a class="wordmark" href="./">BiblioFlix</a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="./">Accueil</a>
+        <a href="./categories.html">Catégories</a>
+      </nav>
+      <form class="site-search" id="site-search" role="search">
+        <label class="sr-only" for="site-search-input">Rechercher un livre</label>
+        <input id="site-search-input" name="q" type="search" placeholder="Titre, auteur, sujet" />
+        <button type="submit">Rechercher</button>
+      </form>
+      <a class="header-contact" href="https://wa.me/221755576094" target="_blank" rel="noreferrer">WhatsApp</a>
+    </header>
+
+    <main class="page-main">
+      <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="./">Accueil</a><span>/</span><span>Livres</span></nav>
+      <section class="page-intro">
+        <p class="eyebrow">BIBLIOTHÈQUE</p>
+        <h1 id="catalogue-heading">Les livres</h1>
+        <p>Parcourez les livres ou choisissez une catégorie.</p>
+      </section>
+
+      <nav class="category-strip" id="catalogue-categories" aria-label="Catégories de livres"></nav>
+      <div class="catalogue-summary">
+        <p id="catalogue-description">Sélectionnez une catégorie ou lancez une recherche.</p>
+        <p id="catalogue-count" class="muted-text"></p>
+      </div>
+      <div class="catalogue-grid" id="catalogue-grid" aria-live="polite"></div>
+      <div class="infinite-scroll-sentinel" id="catalogue-sentinel" aria-hidden="true"></div>
+      <p class="section-status" id="catalogue-status" role="status"></p>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark" href="./">BiblioFlix</a>
+      <a href="https://wa.me/221755576094" target="_blank" rel="noreferrer">Nous contacter sur WhatsApp</a>
+      <p>© 2026 BiblioFlix</p>
+    </footer>
+  </body>
+</html>

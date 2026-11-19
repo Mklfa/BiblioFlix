@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#141414" />
+    <meta name="description" content="Présentation du livre et commande par WhatsApp." />
+    <title>Livre | BiblioFlix</title>
+    <link rel="preconnect" href="https://openlibrary.org" />
+    <link rel="preconnect" href="https://covers.openlibrary.org" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./common.js" defer></script>
+    <script src="./livre.js" defer></script>
+  </head>
+  <body data-page="livre">
+    <header class="site-header">
+      <a class="wordmark" href="./">BiblioFlix</a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="./">Accueil</a>
+        <a href="./categories.html">Catégories</a>
+      </nav>
+      <form class="site-search" id="site-search" role="search">
+        <label class="sr-only" for="site-search-input">Rechercher un livre</label>
+        <input id="site-search-input" name="q" type="search" placeholder="Titre, auteur, sujet" />
+        <button type="submit">Rechercher</button>
+      </form>
+      <a class="header-contact" href="https://wa.me/221755576094" target="_blank" rel="noreferrer">WhatsApp</a>
+    </header>
+
+    <main class="page-main">
+      <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="./">Accueil</a><span>/</span><a href="./catalogue.html">Livres</a><span>/</span><span id="book-breadcrumb">Livre</span></nav>
+      <section class="book-detail" id="book-detail" aria-live="polite">
+        <p class="section-status" id="book-status" role="status">Chargement de la fiche du livre.</p>
+      </section>
+      <section class="content-section related-section" id="related-section" hidden>
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">À DÉCOUVRIR</p>
+            <h2>Dans la même catégorie</h2>
+          </div>
+          <a class="text-link" id="related-link" href="./catalogue.html">Voir la sélection</a>
+        </div>
+        <div class="book-rail" id="related-books"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark" href="./">BiblioFlix</a>
+      <a href="https://wa.me/221755576094" target="_blank" rel="noreferrer">Nous contacter sur WhatsApp</a>
+      <p>© 2026 BiblioFlix</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "biblioflix",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Librairie en ligne avec catalogue Open Library et commandes WhatsApp.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
