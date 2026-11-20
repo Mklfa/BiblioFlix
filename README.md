@@ -13,7 +13,7 @@ Aucune dépendance supplémentaire n’est nécessaire.
 
 ## Installer BiblioFlix sur un téléphone
 
-BiblioFlix peut être installé gratuitement comme application web progressive (PWA), sans compte de boutique. Sur Android, ouvrez le site dans Chrome et choisissez « Installer l’application » ou « Ajouter à l’écran d’accueil ». Sur iPhone, ouvrez-le dans Safari, touchez « Partager », puis « Sur l’écran d’accueil ». Les pages et ressources principales restent disponibles hors ligne; les recherches, les couvertures externes et les commandes WhatsApp nécessitent une connexion Internet.
+BiblioFlix peut être installé gratuitement comme application web progressive (PWA), sans compte de boutique. Une proposition d’installation s’affiche sur le site. Sur Android, ouvrez-la depuis Chrome; sur iPhone, touchez le bouton pour afficher les étapes Safari : « Partager », puis « Sur l’écran d’accueil ». Les pages et ressources principales restent disponibles hors ligne; les recherches, les couvertures externes et les commandes WhatsApp nécessitent une connexion Internet.
 
 ## Publication sur GitHub Pages
 
