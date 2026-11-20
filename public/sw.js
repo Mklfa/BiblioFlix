@@ -1,4 +1,4 @@
-const CACHE_NAME = "biblioflix-pwa-v2";
+const CACHE_NAME = "biblioflix-pwa-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -48,24 +48,33 @@ self.addEventListener("fetch", (event) => {
   if (request.mode === "navigate") {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
+      const fallbackUrls = [request.url];
+      if (!requestUrl.pathname.endsWith("/") && !requestUrl.pathname.endsWith(".html")) {
+        fallbackUrls.push(new URL(`${requestUrl.pathname}.html`, requestUrl.origin).href);
+      }
+      fallbackUrls.push(new URL("./index.html", self.registration.scope).href);
+
+      let cachedPage = null;
+      for (const fallbackUrl of fallbackUrls) {
+        cachedPage = await cache.match(fallbackUrl, { ignoreSearch: true });
+        if (cachedPage) {
+          break;
+        }
+      }
+
+      if (!self.navigator.onLine && cachedPage) {
+        return cachedPage;
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
       let response;
-
       try {
-        response = await fetch(request);
+        response = await fetch(request, { cache: "no-store", signal: controller.signal });
       } catch {
-        const fallbackUrls = [request.url];
-        if (!requestUrl.pathname.endsWith("/") && !requestUrl.pathname.endsWith(".html")) {
-          fallbackUrls.push(new URL(`${requestUrl.pathname}.html`, requestUrl.origin).href);
-        }
-        fallbackUrls.push(new URL("./index.html", self.registration.scope).href);
-
-        for (const fallbackUrl of fallbackUrls) {
-          const cachedPage = await cache.match(fallbackUrl, { ignoreSearch: true });
-          if (cachedPage) {
-            return cachedPage;
-          }
-        }
-        return Response.error();
+        return cachedPage || Response.error();
+      } finally {
+        clearTimeout(timeoutId);
       }
 
       if (response.ok) {
