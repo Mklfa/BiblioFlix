@@ -95,20 +95,27 @@ function getWeeklyTrendingBooks(date = new Date()) {
   const mondayOffset = (new Date(weekStart).getUTCDay() + 6) % 7;
   const monday = weekStart - mondayOffset * 24 * 60 * 60 * 1000;
   const weekIndex = Math.floor((monday - Date.UTC(2020, 0, 6)) / (7 * 24 * 60 * 60 * 1000));
-  const subjects = ["romance", "fiction", "mystery", "science fiction", "juvenile fiction", "philosophy"];
+  const subjects = ["romance", "dark romance", "fiction", "mystery", "science fiction", "juvenile fiction", "philosophy"];
   const booksBySubject = new Map(subjects.map((subject) => {
-    const books = CURATED_BOOKS.filter((book) =>
-      book.primaryCategorySubject === subject
-      && hasFrenchEbook(book)
-      && book.key
-      && Number(book.cover_i) > 0);
+    const books = CURATED_BOOKS.filter((book) => {
+      const isDarkRomance = book.subject?.some((item) => normalizeSubject(item).startsWith("dark romance"));
+      const matchesSubject = subject === "dark romance"
+        ? book.primaryCategorySubject === "romance" && isDarkRomance
+        : subject === "romance"
+          ? book.primaryCategorySubject === "romance" && !isDarkRomance
+          : book.primaryCategorySubject === subject;
+      return matchesSubject
+        && hasFrenchEbook(book)
+        && book.key
+        && Number(book.cover_i) > 0;
+    });
     const start = books.length ? weekIndex % books.length : 0;
     return [subject, [...books.slice(start), ...books.slice(0, start)]];
   }));
   const selectionPlan = [
-    ["romance", 3],
-    ["fiction", 3],
-    ["mystery", 2],
+    ["romance", 4],
+    ["dark romance", 3],
+    ["mystery", 1],
     ["science fiction", 1],
     ["juvenile fiction", 1],
   ];
