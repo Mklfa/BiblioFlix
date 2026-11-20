@@ -39,7 +39,7 @@ jobs:
           version = os.environ["ASSET_VERSION"]
           for html_file in Path("public").glob("*.html"):
               html = html_file.read_text(encoding="utf-8")
-              for asset in ("styles.css", "common.js", "home.js", "catalogue.js", "categories.js", "livre.js"):
+              for asset in ("styles.css", "common.js", "pwa.js", "home.js", "catalogue.js", "categories.js", "livre.js"):
                   html = html.replace(f'./{asset}"', f'./{asset}?v={version}"')
               html_file.write_text(html, encoding="utf-8")
           PY
