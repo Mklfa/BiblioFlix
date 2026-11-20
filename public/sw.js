@@ -1,4 +1,4 @@
-const CACHE_NAME = "biblioflix-pwa-v1";
+const CACHE_NAME = "biblioflix-pwa-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -53,13 +53,19 @@ self.addEventListener("fetch", (event) => {
       try {
         response = await fetch(request);
       } catch {
-        const cachedPage = await cache.match(request, { ignoreSearch: true });
-        if (cachedPage) {
-          return cachedPage;
+        const fallbackUrls = [request.url];
+        if (!requestUrl.pathname.endsWith("/") && !requestUrl.pathname.endsWith(".html")) {
+          fallbackUrls.push(new URL(`${requestUrl.pathname}.html`, requestUrl.origin).href);
         }
+        fallbackUrls.push(new URL("./index.html", self.registration.scope).href);
 
-        const homePage = await cache.match(new URL("./index.html", self.registration.scope).href);
-        return homePage || Response.error();
+        for (const fallbackUrl of fallbackUrls) {
+          const cachedPage = await cache.match(fallbackUrl, { ignoreSearch: true });
+          if (cachedPage) {
+            return cachedPage;
+          }
+        }
+        return Response.error();
       }
 
       if (response.ok) {
