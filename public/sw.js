@@ -1,4 +1,4 @@
-const CACHE_NAME = "biblioflix-pwa-v3";
+const CACHE_NAME = "biblioflix-pwa-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -13,8 +13,8 @@ const APP_SHELL = [
   "./livre.js",
   "./pwa.js",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
+  "./icons/icon-192.png?v=2",
+  "./icons/icon-512.png?v=2",
 ];
 
 self.addEventListener("install", (event) => {
