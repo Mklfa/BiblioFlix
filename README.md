@@ -32,4 +32,4 @@ La sélection éditoriale de « Romance » inclut aussi des titres visibles sur 
 
 Le panier est conservé dans le navigateur : les lecteurs peuvent ajouter plusieurs livres, modifier les quantités et envoyer toute la sélection dans un seul message WhatsApp. La commande directe depuis une fiche de livre reste disponible. Le numéro WhatsApp est configuré pour le numéro fourni au Sénégal (`+221 75 557 60 94`). Pour le modifier, changez `WHATSAPP_PHONE` dans `public/common.js`.
 
-L’accueil affiche dix livres sélectionnés dans le catalogue, renouvelés automatiquement chaque lundi et répartis entre plusieurs catégories. Il s’agit d’une sélection éditoriale, et non d’un classement des ventes en temps réel.
+L’accueil affiche dix livres sélectionnés dans le catalogue, renouvelés automatiquement chaque lundi et répartis entre plusieurs catégories, puis des sélections distinctes de romance et de dark romance. Les tendances sont une sélection éditoriale, et non un classement des ventes en temps réel.
