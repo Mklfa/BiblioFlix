@@ -105,8 +105,6 @@ async function loadCategory() {
     searchSources.push(
       { subject: "fantasy" },
       { subject: "african literature" },
-      { subject: "graphic novels" },
-      { subject: "comics" },
     );
   }
   if (activeCategory.subject === "romance") searchSources.push({ subject: "dark romance" });

@@ -194,6 +194,14 @@ async function loadBookPage() {
       if (!response.ok) throw new Error(`Le catalogue a répondu avec le statut ${response.status}.`);
       data = await response.json();
     }
+    if (window.BookStore.isExcludedBook({
+      key,
+      title: data.title || titleFromUrl,
+      subjects: data.subjects || curatedBook?.subject || [],
+    })) {
+      status.textContent = "Les bandes dessinées et mangas ne sont pas proposés dans ce catalogue.";
+      return;
+    }
     let frenchDescription = cleanDescription(data.description);
     let fallbackDescription = "";
     if (!isFrenchDescription(frenchDescription, data.description)) {

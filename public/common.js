@@ -1,6 +1,6 @@
 const WHATSAPP_PHONE = "221755576094";
 const CATEGORIES = [
-  { label: "Romans", subject: "fiction", group: "Littérature et fiction", description: "Romans classiques, contemporains, littérature générale, œuvres africaines et récits illustrés." },
+  { label: "Romans", subject: "fiction", group: "Littérature et fiction", description: "Romans classiques, contemporains, littérature générale et œuvres africaines." },
   { label: "Policier et thriller", subject: "mystery", group: "Littérature et fiction", description: "Enquêtes, suspense et espionnage, dont les romans SAS de Gérard de Villiers." },
   { label: "Romance", subject: "romance", group: "Littérature et fiction", description: "Histoires d’amour, romances sombres et œuvres à dominante érotique." },
   { label: "Science-fiction", subject: "science fiction", group: "Littérature et fiction", description: "Futurs possibles, technologies et voyages spatiaux." },
@@ -47,7 +47,6 @@ const CURATED_BOOKS = [
   { key: "/works/OL37534151W", title: "La Prof", author_name: ["Freida McFadden"], cover_i: 14570911, first_publish_year: 2024, subject: ["thriller", "mystery"], primaryCategorySubject: "mystery" },
   { key: "/works/OL37812830W", title: "La Gouvernante", author_name: ["Joy Fielding"], cover_i: 15226914, first_publish_year: 2022, subject: ["thriller", "mystery"], primaryCategorySubject: "mystery" },
   { key: "/works/OL11592991W", title: "Les Valkyries", author_name: ["Paulo Coelho"], cover_i: 11737196, first_publish_year: 1995, subject: ["fiction"], primaryCategorySubject: "fiction" },
-  { key: "/works/OL12091280W", title: "Aya de Yopougon", author_name: ["Marguerite Abouet"], cover_i: 8621263, first_publish_year: 2005, subject: ["graphic novels", "comics"], primaryCategorySubject: "fiction" },
   { key: "/works/OL2291647W", title: "Ce que le jour doit à la nuit", author_name: ["Yasmina Khadra"], cover_i: 10352655, first_publish_year: 2008, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Yasmina_Khadra_Ce_que_le_jour_doit_%C3%A0_la_nuit?id=JeikJKI7QoEC" },
   { key: "/works/OL4672081W", title: "Une si longue lettre", author_name: ["Mariama Bâ"], cover_i: 14338907, first_publish_year: 1980, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"] },
   { key: "/works/OL260368W", title: "L'enfant noir", author_name: ["Camara Laye"], cover_i: 2146203, first_publish_year: 1953, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"] },
@@ -76,8 +75,6 @@ const CURATED_BOOKS = [
   { key: "/works/OL20051787W", title: "Chanson douce", author_name: ["Leïla Slimani"], cover_i: 13099687, first_publish_year: 2016, subject: ["mystery", "thriller"], primaryCategorySubject: "mystery", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Le%C3%AFla_Slimani_Chanson_douce?id=tk1aDwAAQBAJ" },
   { key: "/works/OL22325497W", title: "Nymphéas noirs", author_name: ["Michel Bussi"], cover_i: 10453520, first_publish_year: 2015, subject: ["mystery", "thriller"], primaryCategorySubject: "mystery", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Michel_Bussi_Nymph%C3%A9as_noirs?id=TAmADwAAQBAJ" },
   { key: "/works/OL16805041W", title: "La Vérité sur l'affaire Harry Quebert", author_name: ["Joël Dicker"], cover_i: 7258840, first_publish_year: 2012, subject: ["mystery", "thriller"], primaryCategorySubject: "mystery", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Jo%C3%ABl_Dicker_La_V%C3%A9rit%C3%A9_sur_l_Affaire_Harry_Quebert?id=169VEAAAQBAJ" },
-  { key: "/works/OL151071W", title: "Tintin au Tibet", author_name: ["Hergé"], cover_i: 491669, first_publish_year: 1960, subject: ["graphic novels", "comics"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Herg%C3%A9_Tintin_au_Tibet?id=a64_DwAAQBAJ" },
-  { key: "/works/OL267622W", title: "Astérix le Gaulois", author_name: ["René Goscinny", "Albert Uderzo"], cover_i: 962725, first_publish_year: 1961, subject: ["graphic novels", "comics"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Ren%C3%A9_Goscinny_Ast%C3%A9rix_Ast%C3%A9rix_le_Gaulois_n_1?id=uhNoEBoae8oC" },
   { key: "/works/OL1230601W", title: "Le Mythe de Sisyphe", author_name: ["Albert Camus"], cover_i: 1014395, first_publish_year: 1941, subject: ["philosophy"], primaryCategorySubject: "philosophy", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Albert_Camus_Le_mythe_de_Sisyphe_Essai_sur_l_absur?id=wFF_DQAAQBAJ" },
   { key: "/works/OL19742677W", title: "La Tresse", author_name: ["Laetitia Colombani"], cover_i: 15163605, first_publish_year: 2017, subject: ["fiction", "women"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Laetitia_Colombani_La_tresse?id=Fd6fDgAAQBAJ" },
   { key: "/works/OL19849088W", title: "Changer l'eau des fleurs", author_name: ["Valérie Perrin"], cover_i: 8647724, first_publish_year: 2018, subject: ["fiction", "romance"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Val%C3%A9rie_Perrin_Changer_l_eau_des_fleurs?id=hfFIDwAAQBAJ" },
@@ -141,7 +138,7 @@ function getWeeklyTrendingBooks(date = new Date()) {
   return selectedBooks;
 }
 const CATEGORY_SUBJECT_ALIASES = {
-  "fiction": ["fiction", "novel", "novels", "short stories", "fantasy", "fantasy fiction", "african literature", "african fiction", "african novels", "graphic novels", "graphic novel", "comics", "comic books"],
+  "fiction": ["fiction", "novel", "novels", "short stories", "fantasy", "fantasy fiction", "african literature", "african fiction", "african novels"],
   "mystery": ["mystery", "mystery fiction", "detective fiction", "detective stories", "detective and mystery stories", "crime fiction", "thrillers", "thriller", "spy fiction", "spy stories", "espionage", "espionage fiction", "espionage stories"],
   "romance": ["romance", "romance fiction", "love stories", "dark romance", "erotica", "erotic fiction", "erotic literature", "erotic stories", "erotic novels"],
   "science fiction": ["science fiction", "science fiction stories"],
@@ -211,7 +208,51 @@ function normalizeSubject(value) {
     .trim();
 }
 
+const EXCLUDED_BOOK_KEYS = new Set([
+  "/works/OL12091280W",
+  "/works/OL151071W",
+  "/works/OL267622W",
+]);
+const EXCLUDED_BOOK_TERMS = [
+  "anime",
+  "manga",
+  "mangas",
+  "comic",
+  "comics",
+  "comic book",
+  "comic books",
+  "comic strip",
+  "comic strips",
+  "graphic novel",
+  "graphic novels",
+  "cartoon",
+  "cartoons",
+  "bande dessinee",
+  "bandes dessinees",
+  "dessin anime",
+  "dessins animes",
+];
+
+function hasExcludedBookTerm(value) {
+  const normalized = ` ${normalizeSubject(value)} `;
+  return EXCLUDED_BOOK_TERMS.some((term) => normalized.includes(` ${term} `));
+}
+
+function isExcludedBook(book) {
+  if (!book || typeof book !== "object") return false;
+  if (EXCLUDED_BOOK_KEYS.has(book.key)) return true;
+
+  const subjects = [
+    ...(Array.isArray(book.subject) ? book.subject : []),
+    ...(Array.isArray(book.subjects) ? book.subjects : []),
+  ];
+  return [...subjects, book.title]
+    .filter((value) => typeof value === "string")
+    .some(hasExcludedBookTerm);
+}
+
 function getPrimaryCategory(book) {
+  if (isExcludedBook(book)) return null;
   const curatedBook = CURATED_BOOKS_BY_KEY.get(book.key);
   if (curatedBook) {
     return CATEGORIES.find((category) => category.subject === curatedBook.primaryCategorySubject) || null;
@@ -266,6 +307,10 @@ function filterBooksByPrimaryCategory(books, subject) {
 }
 
 async function searchBooks({ query = "", subject = "", page = 1, limit = 30, sort = "" } = {}) {
+  if (hasExcludedBookTerm(query) || hasExcludedBookTerm(subject)) {
+    return { total: 0, books: [] };
+  }
+
   const expression = query && subject
     ? `${query} subject:"${subject}" language:fre`
     : query
@@ -294,7 +339,7 @@ async function searchBooks({ query = "", subject = "", page = 1, limit = 30, sor
     const data = await response.json();
     const result = {
       total: Number(data.numFound || 0),
-      books: (data.docs || []).filter((book) => book.key && book.title),
+      books: (data.docs || []).filter((book) => book.key && book.title && !isExcludedBook(book)),
     };
     SEARCH_CACHE.set(url, { result, expiresAt: Date.now() + SEARCH_CACHE_TTL_MS });
     if (SEARCH_CACHE.size > SEARCH_CACHE_MAX_ENTRIES) {
@@ -307,6 +352,7 @@ async function searchBooks({ query = "", subject = "", page = 1, limit = 30, sor
 }
 
 function createBookCard(book, subject = "", eager = false) {
+  if (isExcludedBook(book)) return null;
   const sources = getBookCoverSources(book);
   if (!sources.length) return null;
 
@@ -366,6 +412,7 @@ function loadCart() {
     if (!saved) return [];
     const parsed = JSON.parse(saved);
     if (!Array.isArray(parsed)) throw new TypeError("Le contenu du panier n’est pas une liste.");
+    const excludedItems = parsed.filter((item) => isExcludedBook(item));
     const validItems = parsed.filter((item) => (
       item
       && typeof item.key === "string"
@@ -373,8 +420,12 @@ function loadCart() {
       && typeof item.author === "string"
       && Number.isSafeInteger(item.quantity)
       && item.quantity > 0
+      && !isExcludedBook(item)
     ));
-    if (validItems.length !== parsed.length) {
+    if (excludedItems.length) {
+      cartFeedback = "Les bandes dessinées et mangas ont été retirés du panier.";
+    }
+    if (validItems.length + excludedItems.length !== parsed.length) {
       console.error("Certaines lignes du panier enregistré sont invalides.");
       cartStorageWarning = "Certaines lignes enregistrées n’ont pas pu être récupérées.";
     }
@@ -465,6 +516,11 @@ function addToCart(book, quantity = 1) {
   const author = typeof authorName === "string" && authorName.trim()
     ? authorName.trim()
     : "Auteur non renseigné";
+  if (isExcludedBook(book)) {
+    cartFeedback = "Les bandes dessinées et mangas ne sont pas proposés.";
+    renderCart();
+    return false;
+  }
   if (!key || !title || !Number.isSafeInteger(quantity) || quantity < 1) {
     console.error("Impossible d’ajouter ce livre au panier : ses informations ou sa quantité sont invalides.");
     cartFeedback = "Impossible d’ajouter ce livre au panier.";
@@ -481,7 +537,12 @@ function addToCart(book, quantity = 1) {
     }
     existing.quantity += quantity;
   } else {
-    cartItems.push({ key, title, author, quantity });
+    const subjects = Array.isArray(book.subject)
+      ? book.subject
+      : Array.isArray(book.subjects)
+        ? book.subjects
+        : [];
+    cartItems.push({ key, title, author, quantity, subjects });
   }
   cartFeedback = "";
   saveCart();
@@ -610,9 +671,11 @@ window.BookStore = {
   getBookCoverUrl,
   getBookCoverSources,
   getBookHref,
-  getFrenchCuratedBooks: () => CURATED_BOOKS.filter((book) => book.language?.includes("fre")),
+  getFrenchCuratedBooks: () => CURATED_BOOKS.filter((book) => (
+    book.language?.includes("fre") && !isExcludedBook(book)
+  )),
   getCuratedBooksForCategory: (subject) => CURATED_BOOKS
-    .filter((book) => book.primaryCategorySubject === subject)
+    .filter((book) => book.primaryCategorySubject === subject && !isExcludedBook(book))
     .sort((first, second) => (
       Number(hasFrenchEbook(second)) - Number(hasFrenchEbook(first))
       || Number(Boolean(second.language?.includes("fre"))) - Number(Boolean(first.language?.includes("fre")))
@@ -620,6 +683,7 @@ window.BookStore = {
   getCuratedBook: (key) => CURATED_BOOKS_BY_KEY.get(key) || null,
   filterBooksByPrimaryCategory,
   addToCart,
+  isExcludedBook,
   getPrimaryCategory,
   getWeeklyTrendingBooks,
   renderBookCards,
