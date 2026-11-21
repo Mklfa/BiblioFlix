@@ -3,6 +3,9 @@ const isIosDevice = /iphone|ipad|ipod/i.test(navigator.userAgent)
   || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const isInstalled = () => window.matchMedia("(display-mode: standalone)").matches
   || navigator.standalone === true;
+const isWindowsDevice = /windows/i.test(navigator.userAgent)
+  || navigator.platform?.toLowerCase().startsWith("win");
+const windowsInstallerUrl = "https://github.com/Mklfa/BiblioFlix/releases/download/desktop-latest/BiblioFlix-Setup.exe";
 
 const hasDismissedInstallPrompt = () => {
   try {
@@ -51,7 +54,11 @@ installActions.className = "pwa-install-actions";
 const installButton = document.createElement("button");
 installButton.className = "button button-primary";
 installButton.type = "button";
-installButton.textContent = isIosDevice ? "Comment installer" : "Installer l’application";
+installButton.textContent = isIosDevice
+  ? "Comment installer"
+  : isWindowsDevice
+    ? "Télécharger pour Windows"
+    : "Installer l’application";
 
 const dismissButton = document.createElement("button");
 dismissButton.className = "pwa-install-dismiss";
@@ -87,6 +94,12 @@ installButton.addEventListener("click", async () => {
     return;
   }
 
+  if (isWindowsDevice) {
+    window.location.assign(windowsInstallerUrl);
+    rememberInstallPromptDismissal();
+    return;
+  }
+
   if (!deferredInstallPrompt) {
     showInstallInstructions();
     return;
@@ -116,7 +129,7 @@ window.addEventListener("beforeinstallprompt", (event) => {
   if (!isInstalled() && !hasDismissedInstallPrompt()) {
     if (showingInstallHelp) {
       installHelp.hidden = true;
-      installButton.textContent = "Installer l’application";
+      installButton.textContent = isWindowsDevice ? "Télécharger pour Windows" : "Installer l’application";
       showingInstallHelp = false;
     }
     installBanner.hidden = false;

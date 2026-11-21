@@ -11,9 +11,11 @@ Librairie en ligne en français avec des pages dédiées à l’accueil, au cata
 
 Aucune dépendance supplémentaire n’est nécessaire.
 
-## Installer BiblioFlix sur un téléphone
+## Installer BiblioFlix
 
-BiblioFlix peut être installé gratuitement comme application web progressive (PWA), sans compte de boutique. Une proposition d’installation s’affiche sur le site. Sur Android, ouvrez-la depuis Chrome; sur iPhone, touchez le bouton pour afficher les étapes Safari : « Partager », puis « Sur l’écran d’accueil ». Les pages et ressources principales restent disponibles hors ligne; les recherches, les couvertures externes et les commandes WhatsApp nécessitent une connexion Internet.
+Une proposition d’installation s’affiche sur le site. Sur Windows, le bouton télécharge un installateur `.exe` qui ouvre le même BiblioFlix hébergé sur Cloudflare. Sur Android, il propose l’installation PWA; sur iPhone, il affiche les étapes Safari (« Partager », puis « Sur l’écran d’accueil »). Les pages et ressources principales restent disponibles hors ligne; les recherches, les couvertures externes et les commandes WhatsApp nécessitent une connexion Internet.
+
+L’installateur Windows est généré et publié automatiquement comme pièce jointe d’une version GitHub publique par `.github/workflows/windows-app.yml`.
 
 ## Publication sur GitHub Pages
 

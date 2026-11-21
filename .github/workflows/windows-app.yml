@@ -1,0 +1,39 @@
+name: Build and publish Windows installer
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: windows-installer
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Windows installer
+        run: npm run app:build
+      - name: Publish latest installer
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop-latest
+          name: BiblioFlix pour Windows
+          target_commitish: main
+          make_latest: false
+          prerelease: true
+          files: dist/BiblioFlix-Setup.exe
+          overwrite_files: true

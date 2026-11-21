@@ -4,6 +4,43 @@
   "private": true,
   "description": "Librairie en ligne avec catalogue Open Library et commandes WhatsApp.",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "app:build": "electron-builder --win nsis --x64 --publish never"
+  },
+  "main": "electron-main.js",
+  "build": {
+    "appId": "com.biblioflix.desktop",
+    "productName": "BiblioFlix",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron-main.js",
+      "package.json",
+      "public/icons/icon-512.png"
+    ],
+    "win": {
+      "icon": "public/icons/icon-512.png",
+      "artifactName": "BiblioFlix-Setup.${ext}",
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "BiblioFlix"
+    }
+  },
+  "devDependencies": {
+    "electron": "^39.2.4",
+    "electron-builder": "^26.0.12"
   }
 }

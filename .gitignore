@@ -1,1 +1,3 @@
 verification-report.csv
+node_modules/
+dist/
