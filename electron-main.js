@@ -2,6 +2,7 @@ const { app, BrowserWindow, shell } = require("electron");
 const path = require("node:path");
 
 const APP_URL = "https://biblioflix.pages.dev/";
+const APP_ICON = path.join(__dirname, "public", "icons", "icon.ico");
 const allowedHosts = new Set(["biblioflix.pages.dev", "wa.me"]);
 
 function isAllowedUrl(rawUrl) {
@@ -19,7 +20,7 @@ function createWindow() {
     height: 800,
     minWidth: 320,
     minHeight: 600,
-    icon: path.join(__dirname, "public", "icons", "icon-512.png"),
+    icon: APP_ICON,
     autoHideMenuBar: true,
     webPreferences: {
       contextIsolation: true,
@@ -50,6 +51,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  app.setAppUserModelId("com.biblioflix.desktop");
   createWindow();
 
   app.on("activate", () => {

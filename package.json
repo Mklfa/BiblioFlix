@@ -18,12 +18,12 @@
     "files": [
       "electron-main.js",
       "package.json",
-      "public/icons/icon-512.png"
+      "public/icons/icon-512.png",
+      "public/icons/icon.ico"
     ],
     "win": {
-      "icon": "public/icons/icon-512.png",
+      "icon": "public/icons/icon.ico",
       "artifactName": "BiblioFlix-Setup.${ext}",
-      "signAndEditExecutable": false,
       "target": [
         {
           "target": "nsis",

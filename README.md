@@ -13,7 +13,7 @@ Aucune dépendance supplémentaire n’est nécessaire.
 
 ## Installer BiblioFlix
 
-Une proposition d’installation s’affiche sur le site. Sur Windows, le bouton télécharge un installateur `.exe` qui ouvre le même BiblioFlix hébergé sur Cloudflare. Sur Android, le bouton télécharge un APK, installable depuis n’importe quel navigateur après autorisation d’installer des applications provenant de cette source. Sur iPhone, il affiche les étapes Safari (« Partager », puis « Sur l’écran d’accueil »), car iOS n’autorise pas l’installation d’un APK. Les recherches, les couvertures externes et les commandes WhatsApp nécessitent une connexion Internet.
+Une proposition d’installation s’affiche sur le site. Sur Windows, le bouton télécharge un installateur `.exe` avec le logo B rouge, qui ouvre le même BiblioFlix hébergé sur Cloudflare. Sur Android, le bouton télécharge un APK, installable depuis n’importe quel navigateur après autorisation d’installer des applications provenant de cette source. Sur iPhone, il affiche les étapes Safari (« Partager », puis « Sur l’écran d’accueil »), car iOS n’autorise pas l’installation d’un APK. Les recherches, les couvertures externes et les commandes WhatsApp nécessitent une connexion Internet.
 
 L’installateur Windows est généré et publié automatiquement comme pièce jointe d’une version GitHub publique par `.github/workflows/windows-app.yml`.
 
