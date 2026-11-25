@@ -134,8 +134,13 @@ h1 { margin-bottom: 15px; font-family: inherit; font-size: clamp(36px, 4.5vw, 57
 
 .site-footer { min-height: 76px; margin-top: auto; padding: 18px max(5%, calc((100% - 1320px) / 2)); display: flex; align-items: center; gap: 28px; background: #101010; }
 .site-footer .wordmark { font-size: 16px; }
-.site-footer > a:not(.wordmark) { margin-left: auto; color: #c5c0b9; font-size: 11px; }
-.site-footer p { margin: 0 0 0 auto; color: #8c8881; font-size: 10px; }
+.site-footer .privacy-link { margin-left: auto; color: #c5c0b9; font-size: 11px; }
+.site-footer p { margin: 0; color: #8c8881; font-size: 10px; }
+.privacy-content { max-width: 860px; color: #d3d0ca; font-size: 13px; line-height: 1.75; }
+.privacy-content section { margin-bottom: 27px; }
+.privacy-content h2 { margin-bottom: 9px; color: var(--text); font-size: 18px; }
+.privacy-content p { margin-bottom: 10px; }
+.privacy-content a { color: #f0a45f; text-decoration: underline; text-underline-offset: 3px; }
 
 .pwa-install-banner { position: fixed; z-index: 20; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); width: min(440px, calc(100vw - 32px)); padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; border: 1px solid #49423b; border-radius: 8px; background: #1d1d1d; box-shadow: 0 12px 40px #000b; }
 .pwa-install-banner[hidden] { display: none; }
@@ -229,7 +234,7 @@ h1 { margin-bottom: 15px; font-family: inherit; font-size: clamp(36px, 4.5vw, 57
   .cart-footer { padding: 12px 15px 15px; }
   .cart-actions { flex-direction: column-reverse; }
   .site-footer { min-height: 70px; padding: 16px 5%; flex-wrap: wrap; gap: 12px; }
-  .site-footer > a:not(.wordmark) { margin-left: auto; font-size: 10px; }
+  .site-footer .privacy-link { margin-left: auto; font-size: 10px; }
   .site-footer p { width: 100%; margin: 0; }
   .pwa-install-banner { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); width: calc(100vw - 24px); padding: 13px; grid-template-columns: minmax(0, 1fr) auto; gap: 9px; }
   .pwa-install-copy h2 { font-size: 14px; }

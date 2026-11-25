@@ -1,10 +1,11 @@
-const CACHE_NAME = "biblioflix-pwa-v7";
+const CACHE_NAME = "biblioflix-pwa-v8";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./catalogue.html",
   "./categories.html",
   "./livre.html",
+  "./confidentialite.html",
   "./styles.css",
   "./common.js",
   "./home.js",

@@ -30,6 +30,7 @@ Le workflow `.github/workflows/pages.yml` publie automatiquement le contenu de `
 - `public/catalogue.html` : recherche, filtres et chargement continu au défilement.
 - `public/categories.html` : catégories classées par thème.
 - `public/livre.html` : présentation, couverture, thèmes associés et commande.
+- `public/confidentialite.html` : déclaration de confidentialité et fonctionnement des données.
 
 Le catalogue et les couvertures Open Library sont complétés par une sélection francophone, sans retirer les autres livres. Les fiches dont l’existence d’un ebook français est vérifiée sur Google Play Books France conservent leur lien source; elles passent avant les autres titres francophones dans les catégories et alimentent les tendances hebdomadaires. Les résultats Open Library utilisent le filtre de langue française, mais ne sont pas tous vérifiés individuellement comme ebooks. Les fiches privilégient les présentations françaises et affichent la présentation disponible dans une autre langue si aucune version française n’est trouvée. Les commandes directes WhatsApp contiennent le titre, l’auteur, la référence et la quantité demandée. Le prix et la disponibilité sont à confirmer par message.
 
