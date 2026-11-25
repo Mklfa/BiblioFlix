@@ -3,6 +3,8 @@ name: Build and publish Android app
 on:
   push:
     branches: [main]
+    paths:
+      - "android/**"
   workflow_dispatch:
 
 permissions:

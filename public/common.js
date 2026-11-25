@@ -1,6 +1,7 @@
 const WHATSAPP_PHONE = "221755576094";
 const CATEGORIES = [
-  { label: "Romans", subject: "fiction", group: "Littérature et fiction", description: "Romans classiques, contemporains, littérature générale et œuvres africaines." },
+  { label: "Romans", subject: "fiction", group: "Littérature et fiction", description: "Romans classiques, contemporains et littérature générale." },
+  { label: "Littérature africaine", subject: "african literature", group: "Littérature et fiction", description: "Des classiques aux voix contemporaines des littératures d’Afrique." },
   { label: "Policier et thriller", subject: "mystery", group: "Littérature et fiction", description: "Enquêtes, suspense et espionnage, dont les romans SAS de Gérard de Villiers." },
   { label: "Romance", subject: "romance", group: "Littérature et fiction", description: "Histoires d’amour, romances sombres et œuvres à dominante érotique." },
   { label: "Science-fiction", subject: "science fiction", group: "Littérature et fiction", description: "Futurs possibles, technologies et voyages spatiaux." },
@@ -47,13 +48,34 @@ const CURATED_BOOKS = [
   { key: "/works/OL37534151W", title: "La Prof", author_name: ["Freida McFadden"], cover_i: 14570911, first_publish_year: 2024, subject: ["thriller", "mystery"], primaryCategorySubject: "mystery" },
   { key: "/works/OL37812830W", title: "La Gouvernante", author_name: ["Joy Fielding"], cover_i: 15226914, first_publish_year: 2022, subject: ["thriller", "mystery"], primaryCategorySubject: "mystery" },
   { key: "/works/OL11592991W", title: "Les Valkyries", author_name: ["Paulo Coelho"], cover_i: 11737196, first_publish_year: 1995, subject: ["fiction"], primaryCategorySubject: "fiction" },
-  { key: "/works/OL2291647W", title: "Ce que le jour doit à la nuit", author_name: ["Yasmina Khadra"], cover_i: 10352655, first_publish_year: 2008, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Yasmina_Khadra_Ce_que_le_jour_doit_%C3%A0_la_nuit?id=JeikJKI7QoEC" },
-  { key: "/works/OL4672081W", title: "Une si longue lettre", author_name: ["Mariama Bâ"], cover_i: 14338907, first_publish_year: 1980, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"] },
-  { key: "/works/OL260368W", title: "L'enfant noir", author_name: ["Camara Laye"], cover_i: 2146203, first_publish_year: 1953, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"] },
-  { key: "/works/OL661945W", title: "Les soleils des indépendances", author_name: ["Ahmadou Kourouma"], cover_i: 13272075, first_publish_year: 1968, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"] },
-  { key: "/works/OL1407863W", title: "Les bouts de bois de Dieu", author_name: ["Ousmane Sembène"], cover_i: 5428280, first_publish_year: 1960, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"] },
-  { key: "/works/OL17841200W", title: "Petit pays", author_name: ["Gaël Faye"], cover_i: 8807223, first_publish_year: 2016, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Ga%C3%ABl_Faye_Petit_pays?id=ddxQDAAAQBAJ" },
-  { key: "/works/OL8552268W", title: "Kiffe Kiffe demain", author_name: ["Faïza Guène"], cover_i: 13339233, first_publish_year: 2005, subject: ["african literature", "fiction"], primaryCategorySubject: "fiction", language: ["fre"] },
+  { key: "/works/OL2291647W", title: "Ce que le jour doit à la nuit", author_name: ["Yasmina Khadra"], cover_i: 10352655, first_publish_year: 2008, subject: ["african literature", "fiction"], primaryCategorySubject: "african literature", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Yasmina_Khadra_Ce_que_le_jour_doit_%C3%A0_la_nuit?id=JeikJKI7QoEC" },
+  { key: "/works/OL4672081W", title: "Une si longue lettre", author_name: ["Mariama Bâ"], cover_i: 14338907, first_publish_year: 1980, subject: ["african literature", "fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL260368W", title: "L'enfant noir", author_name: ["Camara Laye"], cover_i: 2146203, first_publish_year: 1953, subject: ["african literature", "fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL661945W", title: "Les soleils des indépendances", author_name: ["Ahmadou Kourouma"], cover_i: 13272075, first_publish_year: 1968, subject: ["african literature", "fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL1407863W", title: "Les bouts de bois de Dieu", author_name: ["Ousmane Sembène"], cover_i: 5428280, first_publish_year: 1960, subject: ["african literature", "fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL17841200W", title: "Petit pays", author_name: ["Gaël Faye"], cover_i: 8807223, first_publish_year: 2016, subject: ["african literature", "fiction"], primaryCategorySubject: "african literature", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Ga%C3%ABl_Faye_Petit_pays?id=ddxQDAAAQBAJ" },
+  { key: "/works/OL8552268W", title: "Kiffe Kiffe demain", author_name: ["Faïza Guène"], cover_i: 13339233, first_publish_year: 2005, subject: ["african literature", "fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL891786W", title: "Le monde s'effondre", author_name: ["Chinua Achebe"], cover_i: 12816943, first_publish_year: 1958, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL5281621W", title: "Une vie de boy", author_name: ["Ferdinand Oyono"], cover_i: 980868, first_publish_year: 1956, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL1015331W", title: "L'aventure ambiguë", author_name: ["Cheikh Hamidou Kane"], cover_i: 275048, first_publish_year: 1961, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL1407850W", title: "L'Harmattan", author_name: ["Ousmane Sembène"], cover_i: 14361363, first_publish_year: 1964, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL1407858W", title: "Niiwam", author_name: ["Ousmane Sembène"], cover_i: 275108, first_publish_year: 1987, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL740305W", title: "Mission terminée", author_name: ["Mongo Beti"], cover_i: 275034, first_publish_year: 1957, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL3075656W", title: "La grève des bàttu", author_name: ["Aminata Sow Fall"], cover_i: 12509751, first_publish_year: 1979, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL5731538W", title: "L'hibiscus pourpre", author_name: ["Chimamanda Ngozi Adichie"], cover_i: 12063933, first_publish_year: 2003, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL5731542W", title: "L'autre moitié du soleil", author_name: ["Chimamanda Ngozi Adichie"], cover_i: 8472660, first_publish_year: 2006, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL5731541W", title: "Autour de ton cou", author_name: ["Chimamanda Ngozi Adichie"], cover_i: 11320253, first_publish_year: 2009, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL16805415W", title: "Americanah", author_name: ["Chimamanda Ngozi Adichie"], cover_i: 8474037, first_publish_year: 2013, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL661946W", title: "Allah n'est pas obligé", author_name: ["Ahmadou Kourouma"], cover_i: 167482, first_publish_year: 2000, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL1699936W", title: "Murambi, le livre des ossements", author_name: ["Boubacar Boris Diop"], cover_i: 1153382, first_publish_year: 2000, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL2286891W", title: "Verre cassé", author_name: ["Alain Mabanckou"], cover_i: 7105677, first_publish_year: 2005, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL2286889W", title: "Mémoires de porc-épic", author_name: ["Alain Mabanckou"], cover_i: 12314081, first_publish_year: 2006, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL827521W", title: "Amours sauvages", author_name: ["Calixthe Beyala"], cover_i: 2148900, first_publish_year: 1999, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL827498W", title: "C'est le soleil qui m'a brûlée", author_name: ["Calixthe Beyala"], cover_i: 275127, first_publish_year: 1987, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL2286680W", title: "Noces sacrées", author_name: ["Seydou Badian"], cover_i: 4390315, first_publish_year: 1977, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL24607185W", title: "La plus secrète mémoire des hommes", author_name: ["Mohamed Mbougar Sarr"], cover_i: 11273244, first_publish_year: 2021, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL20332978W", title: "Terre ceinte", author_name: ["Mohamed Mbougar Sarr"], cover_i: 8996278, first_publish_year: 2014, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
+  { key: "/works/OL32723254W", title: "Silence du chœur", author_name: ["Mohamed Mbougar Sarr"], cover_i: 13236867, first_publish_year: 2017, subject: ["african literature", "african fiction"], primaryCategorySubject: "african literature", language: ["fre"] },
   { key: "/works/OL1230613W", title: "L'Étranger", author_name: ["Albert Camus"], cover_i: 13151269, first_publish_year: 1942, subject: ["fiction", "philosophy"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Albert_Camus_L_%C3%A9tranger?id=8ilBLY4QEGoC" },
   { key: "/works/OL1230715W", title: "La Peste", author_name: ["Albert Camus"], cover_i: 13151272, first_publish_year: 1942, subject: ["fiction"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Albert_Camus_La_Peste?id=AUTxQ3Elx1YC" },
   { key: "/works/OL1063588W", title: "Les Misérables", author_name: ["Victor Hugo"], cover_i: 12721865, first_publish_year: 1862, subject: ["fiction", "history"], primaryCategorySubject: "fiction", language: ["fre"], ebookUrl: "https://play.google.com/store/books/details/Victor_Hugo_Les_mis%C3%A9rables?id=QEiWkZHpHhYC" },
@@ -145,7 +167,41 @@ function getWeeklyTrendingBooks(date = new Date()) {
   return selectedBooks;
 }
 const CATEGORY_SUBJECT_ALIASES = {
-  "fiction": ["fiction", "novel", "novels", "short stories", "fantasy", "fantasy fiction", "african literature", "african fiction", "african novels"],
+  "fiction": ["fiction", "novel", "novels", "short stories", "fantasy", "fantasy fiction"],
+  "african literature": [
+    "african literature",
+    "african fiction",
+    "african novels",
+    "african poetry",
+    "african drama",
+    "african short stories",
+    "west african literature",
+    "west african fiction",
+    "east african literature",
+    "east african fiction",
+    "north african literature",
+    "north african fiction",
+    "southern african literature",
+    "southern african fiction",
+    "nigerian fiction",
+    "senegalese fiction",
+    "cameroonian fiction",
+    "congolese fiction",
+    "rwandan fiction",
+    "ghanaian fiction",
+    "kenyan fiction",
+    "moroccan fiction",
+    "algerian fiction",
+    "ivorian fiction",
+    "malian fiction",
+    "guinean fiction",
+    "ethiopian fiction",
+    "tanzanian fiction",
+    "zimbabwean fiction",
+    "angolan fiction",
+    "mozambican fiction",
+    "south african fiction",
+  ],
   "mystery": ["mystery", "mystery fiction", "detective fiction", "detective stories", "detective and mystery stories", "crime fiction", "thrillers", "thriller", "spy fiction", "spy stories", "espionage", "espionage fiction", "espionage stories"],
   "romance": ["romance", "romance fiction", "love stories", "dark romance", "erotica", "erotic fiction", "erotic literature", "erotic stories", "erotic novels"],
   "science fiction": ["science fiction", "science fiction stories"],
@@ -155,6 +211,7 @@ const CATEGORY_SUBJECT_ALIASES = {
 };
 const CATEGORY_PREFERENCE = {
   "juvenile fiction": 100,
+  "african literature": 200,
 };
 const SEARCH_CACHE_TTL_MS = 5 * 60 * 1000;
 const SEARCH_CACHE_MAX_ENTRIES = 32;
@@ -258,8 +315,30 @@ function isExcludedBook(book) {
     .some(hasExcludedBookTerm);
 }
 
+function isAfricanLiteratureStudy(book) {
+  const subjects = Array.isArray(book.subject) ? book.subject.map(normalizeSubject) : [];
+  const aliases = CATEGORY_SUBJECT_ALIASES["african literature"];
+  const hasAfricanSubject = subjects.some((subject) => aliases.some((alias) => {
+    const normalizedAlias = normalizeSubject(alias);
+    return subject === normalizedAlias || subject.startsWith(`${normalizedAlias} `);
+  }));
+  if (!hasAfricanSubject) return false;
+
+  const studyTerms = [
+    "bibliography",
+    "history and criticism",
+    "criticism and interpretation",
+    "congresses",
+    "study and teaching",
+    "intellectual life",
+    "authorship",
+  ];
+  return subjects.some((subject) => subject.includes("caribbean literature")
+    || studyTerms.some((term) => subject.includes(term)));
+}
+
 function getPrimaryCategory(book) {
-  if (isExcludedBook(book)) return null;
+  if (isExcludedBook(book) || isAfricanLiteratureStudy(book)) return null;
   const curatedBook = CURATED_BOOKS_BY_KEY.get(book.key);
   if (curatedBook) {
     return CATEGORIES.find((category) => category.subject === curatedBook.primaryCategorySubject) || null;
@@ -290,7 +369,9 @@ function getPrimaryCategory(book) {
       const aliases = CATEGORY_SUBJECT_ALIASES[category.subject] || [category.subject];
       aliases.forEach((alias) => {
         const normalizedAlias = normalizeSubject(alias);
-        const isExactMatch = normalizedSubject === normalizedAlias;
+        const isAfricanLiteratureVariant = category.subject === "african literature"
+          && normalizedSubject.startsWith(`${normalizedAlias} `);
+        const isExactMatch = normalizedSubject === normalizedAlias || isAfricanLiteratureVariant;
         const isFictionSubgenre = fictionSubgenre === normalizedAlias
           || fictionSubgenre.startsWith(`${normalizedAlias} `);
         if (!isExactMatch && !isFictionSubgenre) return;

@@ -4,7 +4,6 @@ const MAX_PAGES_PER_LOAD = 5;
 const LEGACY_CATEGORY_SUBJECTS = {
   wattpad: "romance",
   fantasy: "fiction",
-  "african literature": "fiction",
   "graphic novels": "fiction",
 };
 const requestedSubject = parameters.get("subject") || window.BookStore.categories[0].subject;
@@ -101,12 +100,8 @@ async function loadPrimaryCategoryBooks(requestId, maxPages = MAX_PAGES_PER_LOAD
 async function loadCategory() {
   const requestId = ++currentRequest;
   const searchSources = [{ subject: activeCategory.subject }];
-  if (activeCategory.subject === "fiction") {
-    searchSources.push(
-      { subject: "fantasy" },
-      { subject: "african literature" },
-    );
-  }
+  if (activeCategory.subject === "fiction") searchSources.push({ subject: "fantasy" });
+  if (activeCategory.subject === "african literature") searchSources.push({ subject: "african fiction" });
   if (activeCategory.subject === "romance") searchSources.push({ subject: "dark romance" });
   if (activeCategory.subject === "romance" || activeCategory.subject === "mystery") {
     searchSources.push({ query: 'author:"Gérard de Villiers"' });
