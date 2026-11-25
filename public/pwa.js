@@ -2,10 +2,13 @@ const installPromptKey = "biblioflix-install-prompt-dismissed";
 const isIosDevice = /iphone|ipad|ipod/i.test(navigator.userAgent)
   || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const isInstalled = () => window.matchMedia("(display-mode: standalone)").matches
-  || navigator.standalone === true;
+  || navigator.standalone === true
+  || /BiblioFlixAndroidApp/i.test(navigator.userAgent);
 const isWindowsDevice = /windows/i.test(navigator.userAgent)
   || navigator.platform?.toLowerCase().startsWith("win");
+const isAndroidDevice = /android/i.test(navigator.userAgent);
 const windowsInstallerUrl = "https://github.com/Mklfa/BiblioFlix/releases/download/desktop-latest/BiblioFlix-Setup.exe";
+const androidApkUrl = "https://github.com/Mklfa/BiblioFlix/releases/download/android-latest/BiblioFlix-Android.apk";
 
 const hasDismissedInstallPrompt = () => {
   try {
@@ -40,7 +43,9 @@ const installTitle = document.createElement("h2");
 installTitle.textContent = "Installez BiblioFlix";
 
 const installMessage = document.createElement("p");
-installMessage.textContent = "Retrouvez facilement votre librairie depuis l’écran d’accueil.";
+installMessage.textContent = isAndroidDevice
+  ? "Téléchargez l’APK; Android vous demandera peut-être d’autoriser l’installation depuis ce navigateur."
+  : "Retrouvez facilement votre librairie depuis l’écran d’accueil.";
 installCopy.append(installTitle, installMessage);
 
 const installHelp = document.createElement("p");
@@ -58,7 +63,9 @@ installButton.textContent = isIosDevice
   ? "Comment installer"
   : isWindowsDevice
     ? "Télécharger pour Windows"
-    : "Installer l’application";
+    : isAndroidDevice
+      ? "Télécharger pour Android"
+      : "Installer l’application";
 
 const dismissButton = document.createElement("button");
 dismissButton.className = "pwa-install-dismiss";
@@ -95,8 +102,14 @@ installButton.addEventListener("click", async () => {
   }
 
   if (isWindowsDevice) {
+    hideInstallBanner();
     window.location.assign(windowsInstallerUrl);
-    rememberInstallPromptDismissal();
+    return;
+  }
+
+  if (isAndroidDevice) {
+    hideInstallBanner();
+    window.location.assign(androidApkUrl);
     return;
   }
 
@@ -129,7 +142,11 @@ window.addEventListener("beforeinstallprompt", (event) => {
   if (!isInstalled() && !hasDismissedInstallPrompt()) {
     if (showingInstallHelp) {
       installHelp.hidden = true;
-      installButton.textContent = isWindowsDevice ? "Télécharger pour Windows" : "Installer l’application";
+      installButton.textContent = isWindowsDevice
+        ? "Télécharger pour Windows"
+        : isAndroidDevice
+          ? "Télécharger pour Android"
+          : "Installer l’application";
       showingInstallHelp = false;
     }
     installBanner.hidden = false;

@@ -1,0 +1,48 @@
+name: Build and publish Android app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-app
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android SDK packages
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+      - name: Build Android APK
+        working-directory: android
+        run: gradle --no-daemon assembleDebug
+      - name: Rename APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk BiblioFlix-Android.apk
+      - name: Publish latest Android APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-latest
+          name: BiblioFlix pour Android
+          target_commitish: main
+          make_latest: false
+          prerelease: true
+          files: BiblioFlix-Android.apk
+          overwrite_files: true
